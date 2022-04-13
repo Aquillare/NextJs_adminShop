@@ -20,6 +20,6 @@ const updateProductSchema = Joi.object({
   categoryId: categoryId,
   description: description,
   image: image,
-})
+});
 
-export {createProductSchema, updateProductSchema};
+export { createProductSchema, updateProductSchema };

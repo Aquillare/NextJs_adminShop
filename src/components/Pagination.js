@@ -1,12 +1,10 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import NumberPagination from '@components/NumberPagination';
-import { useState } from 'react';
 
-function Pagination({products,pageLimit,page,setPage,pageFinal,setPageFinal,count,setCount}) {
-
+function Pagination({ products, pageLimit, page, setPage, pageFinal, setPageFinal, count, setCount }) {
   /* establecemos un rango de paginas para nuestra paginacion*/
-  const totalPages = Math.ceil( products.length / pageLimit);
+  const totalPages = Math.ceil(products.length / pageLimit);
 
   const rangeOfPages = (totalPages) => {
     const pages = [];
@@ -21,32 +19,27 @@ function Pagination({products,pageLimit,page,setPage,pageFinal,setPageFinal,coun
 
   const pages = rangeOfPages(totalPages);
 
- 
-
-
   /* funcion para el boton nextPage
   
   */
   const handleNextPage = () => {
-      (Math.ceil(page / (count+totalPages))) < totalPages ? setPage(page + 1) : null;
-      page  % 5 == 0 ?  setPageFinal(!pageFinal) : null;
-      page  % 5 == 0 ? setCount(count + 5) : null;
-      console.log(page, pageFinal);
+    Math.ceil(page / (count + totalPages)) < totalPages ? setPage(page + 1) : null;
+    page % 5 == 0 ? setPageFinal(!pageFinal) : null;
+    page % 5 == 0 ? setCount(count + 5) : null;
+    console.log(page, pageFinal);
   };
   /*funcion para el boton previous page */
   const handlePreviousPage = () => {
-      page > 1 ? setPage(page -1) : null;      
-      (page -1) % 5 == 0 && page != 1 ? setPageFinal(!pageFinal) : null;
-      (page -1) % 5 == 0 && page != 1 ? setCount(count - 5) : null;
-      console.log(page, pageFinal);
+    page > 1 ? setPage(page - 1) : null;
+    (page - 1) % 5 == 0 && page != 1 ? setPageFinal(!pageFinal) : null;
+    (page - 1) % 5 == 0 && page != 1 ? setCount(count - 5) : null;
+    console.log(page, pageFinal);
   };
 
   /*funcion para verificar si la pagina a redireccionar es la misma en la que estamos o no */
   const handlePage = (pageNumber) => {
     page != pageNumber ? setPage(pageNumber) : null;
   };
-  
-  
 
   return (
     <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
@@ -70,20 +63,11 @@ function Pagination({products,pageLimit,page,setPage,pageFinal,setPageFinal,coun
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon onClick={() => handlePreviousPage()} className="h-5 w-5" aria-hidden="true" />
             </a>
-            
-            {
-             pages.map( (number,index,pages) => <NumberPagination
-              number={number}
-              index={index}
-              pages={pages}
-              handlePage={handlePage}
-              page={page}
-              count={count}
-               key={`id-${number}`}
-               />  )
-              }
 
-         
+            {pages.map((number, index, pages) => (
+              <NumberPagination number={number} index={index} pages={pages} handlePage={handlePage} page={page} count={count} key={`id-${number}`} />
+            ))}
+
             <a href="#" className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
               <span className="sr-only">Next</span>
               <ChevronRightIcon onClick={() => handleNextPage()} className="h-5 w-5" aria-hidden="true" />
@@ -93,6 +77,6 @@ function Pagination({products,pageLimit,page,setPage,pageFinal,setPageFinal,coun
       </div>
     </div>
   );
-};
+}
 
 export default Pagination;

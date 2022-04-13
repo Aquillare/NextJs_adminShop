@@ -1,13 +1,13 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useRouter } from 'next/router';
-import {createProductSchema} from '@schemas/productSchema';
+import { createProductSchema } from '@schemas/productSchema';
 import { addProduct, updateProduct } from '@services/api/product';
 
 export default function FormProduct({ setAlert, setOpen, product }) {
   const formRef = useRef(null);
 
   const router = useRouter();
- /* const [file, setFile] = useState();
+  /* const [file, setFile] = useState();
   const handleChange = (event) => {
     console.log(event.target.files[0]);
     setFile(event.target.files[0]);
@@ -22,7 +22,7 @@ export default function FormProduct({ setAlert, setOpen, product }) {
       price: parseInt(formData.get('price')),
       description: formData.get('description'),
       categoryId: parseInt(formData.get('categoryId')),
-      image: formData.get('image'), 
+      image: formData.get('image'),
     };
     const { error } = createProductSchema.validate(data, { abortEarly: false });
     /**
@@ -31,7 +31,7 @@ export default function FormProduct({ setAlert, setOpen, product }) {
      * la data de este producto.
      */
     if (product) {
-      updateProduct(product.id,formData).then(() => {
+      updateProduct(product.id, formData).then(() => {
         router.push('/dashboard/products');
       });
     } else {
@@ -44,7 +44,6 @@ export default function FormProduct({ setAlert, setOpen, product }) {
         });
         router.push('/dashboard/products');
       } else {
-
         addProduct(formData)
           .then(() => {
             setAlert({
@@ -63,8 +62,8 @@ export default function FormProduct({ setAlert, setOpen, product }) {
               autoClose: false,
             });
           });
-      };
-    };
+      }
+    }
   };
 
   return (
@@ -107,11 +106,21 @@ export default function FormProduct({ setAlert, setOpen, product }) {
                 autoComplete="category-name"
                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               >
-                <option type='number' value={1}>Clothes</option>
-                <option type='number' value={2}>Electronics</option>
-                <option type='number' value={3}>Furniture</option>
-                <option type='number' value={4}>Toys</option>
-                <option type='number' value={5}>Others</option>
+                <option type="number" value={1}>
+                  Clothes
+                </option>
+                <option type="number" value={2}>
+                  Electronics
+                </option>
+                <option type="number" value={3}>
+                  Furniture
+                </option>
+                <option type="number" value={4}>
+                  Toys
+                </option>
+                <option type="number" value={5}>
+                  Others
+                </option>
               </select>
             </div>
 
@@ -169,4 +178,4 @@ export default function FormProduct({ setAlert, setOpen, product }) {
       </div>
     </form>
   );
-};
+}

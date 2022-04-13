@@ -32,9 +32,9 @@ function useProviderAuth() {
 
       if (access_token) {
         const token = access_token.token; //con mi api
-        const user = access_token.user;  //con mi api
+        const user = access_token.user; //con mi api
         //const token = access_token.access_token;  /con el api del curso.
-        Cookies.set('token', token, { expires: 5});
+        Cookies.set('token', token, { expires: 5 });
 
         axios.defaults.headers.Authorization = `Bearer ${token}`; // agregamos el token a la configuracion por defecto de axios en el header.
         //const { data: user } = await axios.get(endPoints.auth.profile); //hacemos una peticion al endpoint auth/prodifle y traemos la informacion del usuario
@@ -44,24 +44,24 @@ function useProviderAuth() {
       }
     } catch (error) {
       const errorMesage = 'user invalid';
-      throw  errorMesage
+      throw errorMesage;
     }
   };
 
-  const autorization = async() => {
+  const autorization = async () => {
     const token = Cookies.get('token');
-    if(!token){
+    if (!token) {
       router.push('/login');
-    }else{
-      try{
-      axios.defaults.headers.Authorization = `Bearer ${token}`;
-      const {data:user} = await axios.get(endPoints.auth.profile);
-      setUser(user);
-      }catch(error){
+    } else {
+      try {
+        axios.defaults.headers.Authorization = `Bearer ${token}`;
+        const { data: user } = await axios.get(endPoints.auth.profile);
+        setUser(user);
+      } catch (error) {
         console.log(error);
         router.push('/login');
       }
-    };
+    }
   };
 
   const logout = () => {

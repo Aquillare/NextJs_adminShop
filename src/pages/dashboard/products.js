@@ -12,7 +12,7 @@ import { useAuth } from '@hooks/useAuth';
 export default function Products() {
   const auth = useAuth();
 
-  if(auth.user === null ){
+  if (auth.user === null) {
     auth.autorization();
   }
 
@@ -37,7 +37,7 @@ export default function Products() {
 
   return (
     <>
-    { !auth.user ? null :
+      {!auth.user ? null : (
         <>
           <Alert alert={alert} handleClose={toggleAlert} />
           <div className="lg:flex lg:items-center lg:justify-between">
@@ -95,8 +95,7 @@ export default function Products() {
             <FormProduct setAlert={setAlert} setOpen={setOpen} />
           </Modal>
         </>
-
-    }
+      )}
     </>
   );
 }

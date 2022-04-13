@@ -3,18 +3,14 @@ import endPoints from '@services/api';
 import Pagination from '@components/Pagination';
 import { Chart } from '@common/Chart';
 import DashboardItems from '@components/DashboardItems';
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '@hooks/useAuth';
 import useAlert from '@hooks/useAlert';
 import Alert from '@common/Alert';
 
-
-
-
-
 export default function Dashboard() {
   const auth = useAuth();
-  if(auth.user === null ){
+  if (auth.user === null) {
     auth.autorization();
   }
 
@@ -31,15 +27,15 @@ export default function Dashboard() {
    * estando en a pagina 5 hagamos click en el boton de pagina siguiente, asi pageFinal cambia a true y activa la peticion
    * para traer 50 productos mas.
    */
-  const [pageFinal, setPageFinal] =  useState(false)
+  const [pageFinal, setPageFinal] = useState(false);
 
-   /**
+  /**
    * pageLImit es el limite de elementos que mostraremos por pagina, este valor lo usaremos
    * en el componente  pagination para calcular el rango de paginas.
    */
-    const pageLimit = 10;
+  const pageLimit = 10;
 
-    /**
+  /**
    * PRODUCT_LIMIT es el valor que definiremos para el limit de la peticion.
    */
   const PRODUCT_LIMIT = 50;
@@ -51,11 +47,11 @@ export default function Dashboard() {
    * para cada peticion
    */
   const PRODUCT_OFFSET = count * 10;
- 
+
   /**
    * Peticion de los productos, mediante el customHook useFetch, usa el valor de pagoFinal para actualizarce
    */
-  const products = useFetch(endPoints.products.getProducts(PRODUCT_LIMIT, PRODUCT_OFFSET),(pageFinal));
+  const products = useFetch(endPoints.products.getProducts(PRODUCT_LIMIT, PRODUCT_OFFSET), pageFinal);
   /**
    * Traemos la propiedad de category de todos los porductos.
    */
@@ -84,11 +80,10 @@ export default function Dashboard() {
 
   return (
     <>
-    {!auth.user ? null :
-
-      <>
-        <Chart className="mb-8 mt-2" chartData={data} />
-        <Alert alert={alert} handleClose={toggleAlert} />
+      {!auth.user ? null : (
+        <>
+          <Chart className="mb-8 mt-2" chartData={data} />
+          <Alert alert={alert} handleClose={toggleAlert} />
           <div className="flex flex-col">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -116,24 +111,15 @@ export default function Dashboard() {
                         </th>
                       </tr>
                     </thead>
-                    <DashboardItems products={products?.filter((product,index) => index >= ((page -count) -1) * pageLimit && index < (page - count) * pageLimit )} setAlert={setAlert}/>
+                    <DashboardItems products={products?.filter((product, index) => index >= (page - count - 1) * pageLimit && index < (page - count) * pageLimit)} setAlert={setAlert} />
                   </table>
                 </div>
               </div>
             </div>
           </div>
-            <Pagination 
-              products={ products }
-              pageLimit={pageLimit}
-              page={page}
-              setPage={setPage}
-              pageFinal={pageFinal}
-              setPageFinal={setPageFinal}
-              count={count}
-              setCount={setCount}
-             /> 
+          <Pagination products={products} pageLimit={pageLimit} page={page} setPage={setPage} pageFinal={pageFinal} setPageFinal={setPageFinal} count={count} setCount={setCount} />
         </>
-     }
-    </>    
+      )}
+    </>
   );
-};
+}

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useRouter } from 'next/router';
 import { createCategorySchema } from '@schemas/categorySchema';
 import { addCategory, updateCategory } from '@services/api/categories';
@@ -7,7 +7,7 @@ export default function FormCategory({ setAlert, setOpen, category }) {
   const formRef = useRef(null);
 
   const router = useRouter();
- /* const [file, setFile] = useState();
+  /* const [file, setFile] = useState();
   const handleChange = (event) => {
     console.log(event.target.files[0]);
     setFile(event.target.files[0]);
@@ -19,7 +19,7 @@ export default function FormCategory({ setAlert, setOpen, category }) {
 
     const data = {
       name: formData.get('name'),
-      image: formData.get('image'), 
+      image: formData.get('image'),
     };
     const { error } = createCategorySchema.validate(data, { abortEarly: false });
     /**
@@ -28,7 +28,7 @@ export default function FormCategory({ setAlert, setOpen, category }) {
      * la data de este categoria.
      */
     if (category) {
-      updateCategory(category.id,formData).then(() => {
+      updateCategory(category.id, formData).then(() => {
         router.push('/dashboard/categories');
       });
     } else {
@@ -59,8 +59,8 @@ export default function FormCategory({ setAlert, setOpen, category }) {
               autoClose: false,
             });
           });
-      };
-    };
+      }
+    }
   };
 
   return (
@@ -121,4 +121,4 @@ export default function FormCategory({ setAlert, setOpen, category }) {
       </div>
     </form>
   );
-};
+}

@@ -8,9 +8,9 @@ import { useAuth } from '@hooks/useAuth';
 export default function Edit() {
   const auth = useAuth();
 
-  if(auth.user === null ){
+  if (auth.user === null) {
     auth.autorization();
-  };
+  }
 
   const [product, setProduct] = useState({});
   const router = useRouter();
@@ -29,16 +29,10 @@ export default function Edit() {
     async function getProduct() {
       const response = await axios.get(endPoints.products.getProduct(id));
       setProduct(response.data);
-    };
+    }
 
     getProduct();
   }, [router?.isReady]);
 
-  return (
-    <>
-    {!auth.user ? null :
-      <FormProduct product={product} />
-    }
-    </>
-  );
-};
+  return <>{!auth.user ? null : <FormProduct product={product} />}</>;
+}

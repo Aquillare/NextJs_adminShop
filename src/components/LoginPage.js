@@ -15,11 +15,11 @@ export default function LoginPage() {
 
   const errorHandler = (error) => {
     setErrorMessage(error);
-    setTimeout( () => {
+    setTimeout(() => {
       setErrorMessage(null);
     }, 2000);
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -27,11 +27,14 @@ export default function LoginPage() {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    auth.signIn(email, password).then(() => {
-      router.push('/dashboard');
-
-      
-    }).catch( (error)=>{ errorHandler(error)});
+    auth
+      .signIn(email, password)
+      .then(() => {
+        router.push('/dashboard');
+      })
+      .catch((error) => {
+        errorHandler(error);
+      });
   };
 
   return (
@@ -42,7 +45,9 @@ export default function LoginPage() {
             <img className="mx-auto h-12 w-auto" src="https://reactshop.sfo3.digitaloceanspaces.com/laptop.png" alt="Workflow" />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
           </div>
-          { loading ? <Loading/> : 
+          {loading ? (
+            <Loading />
+          ) : (
             <form className="mt-8 space-y-6" onSubmit={submitHandler}>
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="rounded-md shadow-sm -space-y-px">
@@ -56,7 +61,11 @@ export default function LoginPage() {
                     type="email"
                     autoComplete="email"
                     required
-                    className={ errorMessage ? "appearance-none rounded-none relative block w-full px-3 py-2 border border-red-400 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" :"appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"}
+                    className={
+                      errorMessage
+                        ? 'appearance-none rounded-none relative block w-full px-3 py-2 border border-red-400 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm'
+                        : 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm'
+                    }
                     placeholder="Email address"
                     ref={emailRef}
                   />
@@ -71,7 +80,11 @@ export default function LoginPage() {
                     type="password"
                     autoComplete="current-password"
                     required
-                    className={ errorMessage ? "appearance-none rounded-none relative block w-full px-3 py-2 border border-red-500 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm": "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" }
+                    className={
+                      errorMessage
+                        ? 'appearance-none rounded-none relative block w-full px-3 py-2 border border-red-500 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm'
+                        : 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm'
+                    }
                     placeholder="Password"
                     ref={passwordRef}
                   />
@@ -105,21 +118,11 @@ export default function LoginPage() {
                 </button>
               </div>
             </form>
-          }
-          
-          <div>
-          {
-            errorMessage?
-            <p className='text-sm text-gray-700'>{errorMessage}</p>
-            :
-            null
-          }
+          )}
+
+          <div>{errorMessage ? <p className="text-sm text-gray-700">{errorMessage}</p> : null}</div>
         </div>
-        </div>
-        
       </div>
-      
-      
     </>
   );
 }

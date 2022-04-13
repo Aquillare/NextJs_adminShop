@@ -2,18 +2,13 @@
 import { useAuth } from '@hooks/useAuth';
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', current: false },
   { name: 'Products', href: '/dashboard/products', current: false },
   { name: 'Categories', href: '/dashboard/categories', current: false },
-
-];
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
 ];
 
 function classNames(...classes) {
@@ -23,10 +18,9 @@ function classNames(...classes) {
 export default function Header() {
   const auth = useAuth();
 
-  if(!auth.user){
-    return null
+  if (!auth.user) {
+    return null;
   }
-
 
   const userData = {
     name: auth?.user?.name, //valor? usamos opcional chaining, si no esta disponible el valor, se establece como undefined.
@@ -48,13 +42,14 @@ export default function Header() {
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
                       {navigation.map((item) => (
-                        <Link href={item.href} key={item.name} >
-                          <a className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
-                              aria-current={item.current ? 'page' : undefined}>
+                        <Link href={item.href} key={item.name}>
+                          <a
+                            className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
+                            aria-current={item.current ? 'page' : undefined}
+                          >
                             {item.name}
                           </a>
                         </Link>
-                     
                       ))}
                     </div>
                   </div>
@@ -66,13 +61,12 @@ export default function Header() {
                       className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
                       <span className="sr-only">View notifications</span>
-                     {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
+                      {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
                     </button>
 
                     {/* Profile dropdown */}
                     <Menu as="div" className="ml-3 relative">
                       <div>
-                    
                         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
                           <img className="h-8 w-8 rounded-full" src={userData.imageUrl} alt="" />

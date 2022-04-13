@@ -8,7 +8,7 @@ import axios from 'axios';
  *
  */
 
-function useFetch(endpoint,effectParametro) {
+function useFetch(endpoint, effectParametro) {
   const [data, setData] = useState([]);
 
   /**

@@ -8,9 +8,9 @@ import FormCategory from '@components/FormCategory';
 export default function Edit() {
   const auth = useAuth();
 
-  if(auth.user === null ){
+  if (auth.user === null) {
     auth.autorization();
-  };
+  }
 
   const [category, setCategory] = useState({});
   const router = useRouter();
@@ -29,16 +29,10 @@ export default function Edit() {
     async function getCategory() {
       const response = await axios.get(endPoints.categories.getCategories(id));
       setCategory(response.data);
-    };
+    }
 
     getCategory();
   }, [router?.isReady]);
 
-  return (
-    <>
-    {!auth.user ? null :
-      <FormCategory category={category} />
-    }
-    </>
-  );
-};
+  return <>{!auth.user ? null : <FormCategory category={category} />}</>;
+}
